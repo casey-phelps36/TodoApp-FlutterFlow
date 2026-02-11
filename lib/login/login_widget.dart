@@ -91,7 +91,7 @@ class _LoginWidgetState extends State<LoginWidget>
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.asset(
                         'assets/images/caseysTasksLogo.jpg',
-                        width: 120.0,
+                        width: 140.0,
                         fit: BoxFit.contain,
                       ),
                     ),
