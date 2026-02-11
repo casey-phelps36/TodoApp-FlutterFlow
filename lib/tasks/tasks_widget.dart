@@ -4,6 +4,7 @@ import '/components/add_task_widget.dart';
 import '/components/task_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'tasks_model.dart';
@@ -156,16 +157,36 @@ class _TasksWidgetState extends State<TasksWidget> {
                       itemBuilder: (context, listViewIndex) {
                         final listViewTasksRecord =
                             listViewTasksRecordList[listViewIndex];
-                        return TaskWidget(
-                          key: Key(
-                              'Key4z7_${listViewIndex}_of_${listViewTasksRecordList.length}'),
-                          tasksDoc: listViewTasksRecord,
-                          checkAction: () async {
-                            await listViewTasksRecord.reference
-                                .update(createTasksRecordData(
-                              completed: true,
-                            ));
+                        return InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed(
+                              DetailsWidget.routeName,
+                              queryParameters: {
+                                'taskDoc': serializeParam(
+                                  listViewTasksRecord,
+                                  ParamType.Document,
+                                ),
+                              }.withoutNulls,
+                              extra: <String, dynamic>{
+                                'taskDoc': listViewTasksRecord,
+                              },
+                            );
                           },
+                          child: TaskWidget(
+                            key: Key(
+                                'Key4z7_${listViewIndex}_of_${listViewTasksRecordList.length}'),
+                            tasksDoc: listViewTasksRecord,
+                            checkAction: () async {
+                              await listViewTasksRecord.reference
+                                  .update(createTasksRecordData(
+                                completed: true,
+                              ));
+                            },
+                          ),
                         );
                       },
                     );
