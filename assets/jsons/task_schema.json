@@ -1,0 +1,39 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://example.com/schemas/task.json",
+    "title": "Firestore Task Document",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "completed": {
+        "type": "boolean",
+        "description": "Whether the task is completed"
+      },
+      "created": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Task creation timestamp"
+      },
+      "details": {
+        "type": "string",
+        "description": "Additional task details"
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Task title"
+      },
+      "user": {
+        "type": "string",
+        "pattern": "^/users/[A-Za-z0-9_-]+$",
+        "description": "Firestore document reference to a user document"
+      }
+    },
+    "required": [
+      "completed",
+      "created",
+      "title",
+      "user"
+    ]
+  }
+  

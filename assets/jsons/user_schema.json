@@ -1,0 +1,54 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://example.com/schemas/user.json",
+    "title": "Firestore User Document",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "email": {
+        "type": "string",
+        "format": "email",
+        "description": "User email address"
+      },
+      "display_name": {
+        "type": "string",
+        "minLength": 1,
+        "description": "User display name"
+      },
+      "photo_url": {
+        "type": "string",
+        "format": "uri",
+        "description": "URL to profile image stored in Firebase Storage"
+      },
+      "uid": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Firebase Authentication UID"
+      },
+      "created_time": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Account creation timestamp"
+      },
+      "phone_number": {
+        "type": "string",
+        "description": "User phone number"
+      },
+      "birthday": {
+        "type": "string",
+        "format": "date-time",
+        "description": "User birthday"
+      },
+      "hometown": {
+        "type": "string",
+        "description": "User hometown"
+      }
+    },
+    "required": [
+      "email",
+      "display_name",
+      "uid",
+      "created_time"
+    ]
+  }
+  
