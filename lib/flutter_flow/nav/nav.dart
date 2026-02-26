@@ -87,6 +87,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               appStateNotifier.loggedIn ? NavBarPage() : LoginWidget(),
         ),
         FFRoute(
+          name: OnboardingWidget.routeName,
+          path: OnboardingWidget.routePath,
+          builder: (context, params) => OnboardingWidget(),
+        ),
+        FFRoute(
+          name: CompletedWidget.routeName,
+          path: CompletedWidget.routePath,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'completed')
+              : CompletedWidget(),
+        ),
+        FFRoute(
           name: HomePageWidget.routeName,
           path: HomePageWidget.routePath,
           builder: (context, params) => HomePageWidget(),
@@ -95,17 +107,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: LoginWidget.routeName,
           path: LoginWidget.routePath,
           builder: (context, params) => LoginWidget(),
-        ),
-        FFRoute(
-          name: TasksWidget.routeName,
-          path: TasksWidget.routePath,
-          builder: (context, params) =>
-              params.isEmpty ? NavBarPage(initialPage: 'tasks') : TasksWidget(),
-        ),
-        FFRoute(
-          name: OnboardingWidget.routeName,
-          path: OnboardingWidget.routePath,
-          builder: (context, params) => OnboardingWidget(),
         ),
         FFRoute(
           name: DetailsWidget.routeName,
@@ -121,11 +122,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: CompletedWidget.routeName,
-          path: CompletedWidget.routePath,
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'completed')
-              : CompletedWidget(),
+          name: TasksWidget.routeName,
+          path: TasksWidget.routePath,
+          builder: (context, params) =>
+              params.isEmpty ? NavBarPage(initialPage: 'tasks') : TasksWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -327,6 +327,7 @@ class FFRoute {
           return transitionInfo.hasTransition
               ? CustomTransitionPage(
                   key: state.pageKey,
+                  name: state.name,
                   child: child,
                   transitionDuration: transitionInfo.duration,
                   transitionsBuilder:
@@ -344,7 +345,8 @@ class FFRoute {
                     child,
                   ),
                 )
-              : MaterialPage(key: state.pageKey, child: child);
+              : MaterialPage(
+                  key: state.pageKey, name: state.name, child: child);
         },
         routes: routes,
       );
